@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: API Title
+  version: '1.0'
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /api/v1/videos/{categoryId}/{videoId}:
+    get:
+      summary: Retrieve a video by categoryId and videoId
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the video category
+        - name: videoId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the video
+      responses:
+        '200':
+          description: Successfully retrieved video
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Video'
+        '400':
+          description: Bad request, invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Video not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Video:
+      type: object
+      properties:
+        kind:
+          type: string
+          example: "youtube#video"
+        etag:
+          type: string
+          example: "Dv2VJDHwCtmDdePGvLkAXUOMGRc"
+        id:
+          type: string
+          example: "ZFgjmsYqJyw"
+        snippet:
+          type: object
+          properties:
+            publishedAt:
+              type: string
+              format: date-time
+              example: "2024-09-22T10:30:07Z"
+            channelId:
+              type: string
+              example: "UCsSsgPaZ2GSmO6il8Cb5iGA"
+            title:
+              type: string
+              example: "skibidi toilet 77 (part 3)"
+            description:
+              type: string
+              example: "cameramen face real trouble, then someone arrives to help"
+            thumbnails:
+              type: object
+              properties:
+                medium:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      example: "https://i.ytimg.com/vi/ZFgjmsYqJyw/mqdefault.jpg"
+                    width:
+                      type: integer
+                      example: 320
+                    height:
+                      type: integer
+                      example: 180
+            channelTitle:
+              type: string
+              example: "DaFuq!?Boom!"
+            categoryId:
+              type: string
+              example: "24"
+        statistics:
+          type: object
+          properties:
+            viewCount:
+              type: string
+              example: "9394843"
+            likeCount:
+              type: string
+              example: "644402"
+            commentCount:
+              type: string
+              example: "82230"
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "Invalid categoryId or videoId"
