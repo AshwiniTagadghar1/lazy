@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "build": "tsc",
+    "purge": "rm -rf src/*.js src/**/*.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "start:live": "nodemon --exec ts-node src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "minio": "^8.0.1",
+    "mongoose": "^8.7.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/express": "^5.0.0",
+    "@types/mongoose": "^5.11.97",
+    "eslint": "^9.11.1",
+    "eslint-plugin-react": "^7.37.1",
+    "globals": "^15.10.0",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0"
+  }
+}

@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  # app:
+  #   build: ../    
+  #   ports:
+  #     - 3001:3001
+  #   environment: 
+  #     MINIO_ACCESS_KEY: minioadmin
+  #     MINIO_SECRET_KEY: minioadmin
+
+  joe-app:
+    image: node:21
+    restart: on-failure
+    command: >
+      bash -c "
+        set -ex &&
+        cd app &&
+        npm install &&
+        npm run start:live
+      "       
+    ports:
+      - 3001:3001
+    volumes:
+      - ..:/app
+    environment: 
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+      MINIO_ENDPOINT: minio
+
+      MONGO_URL: 'mongodb://mongodb:27017'
+      MONGO_DB_NAME: 'youtube'
