@@ -1,11 +1,9 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { checkBucketExists, minioClient, } from './lib/minio';
 import { connectToDatabase } from './lib/db';
 import { helloController } from './controller/hello';
-import { getVideo } from './controller/videoController';
-import multer from 'multer';
-
+import { getVideo, upload, uploadVideos } from './controller/videoController';
 
 const app = express();
 const port = 3001;
@@ -20,6 +18,8 @@ app.use(cors());
 app.get('/api/v1/videos/:videoName', getVideo);
 
 app.get('/api/v1/hello', helloController);
+
+app.post('/api/v1/upload', upload.single('video'), uploadVideos);
 
 checkBucketExists(bucketName).then(res => {
     if (res) {
